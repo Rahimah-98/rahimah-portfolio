@@ -37,7 +37,7 @@ const Navbar = () => {
       <nav
         className={`w-full fixed px-5 lg:px-8 xl:px-[8%] py-4 flex items-center justify-between z-50 ${
           isScroll
-            ? 'bg-white opacity-50 background-blur-lg shadow-sm left-0'
+            ? 'bg-white/50 backdrop-blur-lg shadow-sm left-0'
             : 'bg-transparent'
         }`}>
         <Link href='/'>
@@ -62,7 +62,7 @@ const Navbar = () => {
         <div className='flex items-center gap-4'>
           <button>
             <Image src={assets.moon_icon} className='w-5' alt='' />
-          </button> 
+          </button>
 
           <a
             href='#contact'
