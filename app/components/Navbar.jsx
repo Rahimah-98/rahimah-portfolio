@@ -1,7 +1,7 @@
 import { assets } from '@/assets/assets';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const Navbar = () => {
   const navigation = [
@@ -12,6 +12,7 @@ const Navbar = () => {
     { name: 'contact', href: '#contact' },
   ];
 
+  const [isScroll, setIsScroll] = useState(false);
   const sideMenuRef = useRef();
 
   const openMenu = () => {
@@ -21,16 +22,34 @@ const Navbar = () => {
     sideMenuRef.current.style.transform = 'translateX(16rem)';
   };
 
+  useEffect(() => {
+    window.addEventListener('scroll', () => {
+      if (scrollY > 50) {
+        setIsScroll(true);
+      } else {
+        setIsScroll(false);
+      }
+    });
+  }, []);
+
   return (
     <>
-      <nav className='w-full fixed px-5 lg:px-8 xl:px-[8%] py-4 flex items-center justify-between z-50'>
+      <nav
+        className={`w-full fixed px-5 lg:px-8 xl:px-[8%] py-4 flex items-center justify-between z-50 ${
+          isScroll
+            ? 'bg-white opacity-50 background-blur-lg shadow-sm left-0'
+            : 'bg-transparent'
+        }`}>
         <Link href='/'>
           <h1 className='text-4xl font-titillium'>
             Rahimah
             <span className='text-accent text-red-600 font-medium'>ツ</span>
           </h1>
         </Link>
-        <ul className='hidden md:flex items-center gap-6 lg:gap-8 rounded-full px-12 py-3 bg-gray-50 opacity-60 shadow-sm'>
+        <ul
+          className={`hidden md:flex items-center gap-6 lg:gap-8 rounded-full px-12 py-3 ${
+            isScroll ? '' : 'bg-gray-100/50 shadow-md'
+          } `}>
           {navigation.map((item) => (
             <li key={item.name}>
               <Link href={item.href} className='font-Ovo'>
@@ -43,7 +62,7 @@ const Navbar = () => {
         <div className='flex items-center gap-4'>
           <button>
             <Image src={assets.moon_icon} className='w-5' alt='' />
-          </button>
+          </button> 
 
           <a
             href='#contact'
